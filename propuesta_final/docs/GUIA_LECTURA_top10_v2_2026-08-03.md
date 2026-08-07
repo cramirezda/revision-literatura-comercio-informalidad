@@ -59,7 +59,7 @@ Regla de lectura: **Bloque 1 antes de escribir una línea de la propuesta.** Blo
 
 - **Aldeco, Chiquiar, Pérez Pérez & Salcedo**, *Estimación de la elasticidad de la oferta de trabajo en México*, mimeo Banxico → **tu paper-espejo obligado**. Confirmado en las referencias de la nota de 2024, pero no indexado. Pedir a **econlab@banxico.org.mx**.
 - **Hong & McLaren**, *Are Immigrants a Shot in the Arm for the Local Economy?*, NBER WP → cuantifica el canal **"migrantes = consumidores"**; es la evidencia con la que justificas restringir la estimación al **sector transable**.
-- **Caballero, Cadena & Kovak**, redes migratorias México–EE.UU. → construcción de la red; **solo necesario si activas la robustez con red EE.UU.** ⚠️ *Año y revista por verificar* (en notas previas aparece como 2018 y como 2021 en distintos lugares).
+- **Caballero, M. E., Cadena, B. & Kovak, B. (2021/2023)**, *The International Transmission of Local Economic Shocks Through Migrant Networks*, NBER WP 28696 → **Journal of International Economics 145 (2023), 103832** → construcción de la red migratoria MX–EE.UU.; **solo necesario si activas la robustez con red EE.UU.** (Cita ya verificada en `elasticidad_demanda_bibliografia_2026-07-22.md`, Bloque E; su antecedente **Cadena & Kovak (2016)**, AEJ:Applied 8(1), es la plantilla de *supply shifter*.)
 - **Dustmann, Schönberg & Stuhler (2016)**, *The Impact of Immigration: Why Do Studies Reach Such Different Results?*, JEP 30(4) → mapa de por qué los estimados difieren (skill-cell vs área vs mixto); útil para posicionar tu especificación.
 
 ---
