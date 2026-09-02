@@ -90,6 +90,21 @@ Hamermesh (1993) + Lichter-Peichl-Siegloch (2015) EER 80 para el ancla de magnit
 
 ## 5. Exploración de datos — segmentos priorizados
 
+> ### ⚠️ ACTUALIZACIÓN 2026-09-01 — leer antes que el resto de esta sección
+>
+> Los 21 GB ya están en `data/` y **buena parte de S0 se contestó contra los `.dta` reales**. El mapa operativo completo (rutas, conteos de observaciones, llaves, trampas de nombres y la especificación de los do-files) está en **`CUADERNO_EXPLORACION_2026-09-01.md`**, que supersede lo operativo de esta sección. Lo que sigue se conserva por el criterio de salida de cada segmento.
+>
+> **Ya resuelto, no volver a preguntarlo:**
+> - ✅ **El id de mercado es constante entre olas** — la partición se definió una vez con conmutación del Censo 2010. Se llama **`MERCADO_TRABAJO_LOCAL`** (queda descartado `_LABORAL`).
+> - ✅ **Los agregados cubren las cinco olas**: `Demograficos_Nivel` 3,885 = 5×777; `SalResMTL_N` 3,882. Solo `Informalidad` empieza en 2000 (3,105) por falta de derechohabiencia en 1990.
+> - ✅ **El empleo sectorial existe**: `EmpleoTot_MTL` en `LongBartikNacional_Trade0/_Trade1` **es sectorial**, no total (mercado 1 en 1990: total 200,320 · transable 91,310 · no transable 105,620). El diseño de tres columnas cuesta un día.
+> - ✅ **La industria SCIAN 3 dígitos está armonizada en las cinco olas**, 104 industrias; los 104 shares de 1990 están en `WideBartikNacional.dta` y los shifts en `Tasa_Crecimiento_Industria_Nacional.dta` (520 = 104×5).
+> - ✅ **El Bartik es leave-one-out** (fn. 20 de la nota) y cubre las cuatro diferencias.
+>
+> **Lo que queda de S0, y sigue bloqueando:** las columnas `LLAVE_ENTIDAD_RES5A`, `LLAVE_MUNICIPIO_RES5A` y `LLAVE_MUNICIPIO_TRABAJO` **existen en los cinco archivos de personas** — pero eso es artefacto de la armonización. Como "sin valor" es una **categoría del catálogo y no un nulo**, hay que tabular el porcentaje en esa categoría por ola. Un `missing()` no detecta nada. Ver §S0 revisada del cuaderno.
+>
+> **Segmento nuevo, y va ANTES de S4:** calcular el **número efectivo de shocks** `1/Σ_o ŝ_o²` en cuanto existan los shares (fin de S2). Es más barato que la primera etapa y puede obligar a rehacer S2 con celdas origen × sexo × educación. No tiene sentido llegar al go/no-go con una construcción que ya se sabe insuficiente.
+
 Con descarga directa, esta es la ruta crítica. Cada segmento tiene un criterio de salida explícito.
 
 ### S0 — Verificación del diccionario **(bloquea todo lo demás; medio día)**
@@ -99,6 +114,8 @@ Antes de escribir una línea de código de construcción, abrir el Excel del dic
 3. **¿Los agregados cubren 1990, o empiezan en 2000?** Si empiezan en 2000, el placebo de pre-tendencia hay que armarlo desde microdato.
 
 > **Salida:** una tabla de cobertura variable × ola. Si (2) falla, el diseño cambia de raíz y hay que replantear antes de seguir.
+>
+> **↑ Los puntos (2) y (3) están cerrados; el (1) se reformula como la tabla de "% sin valor" descrita en la actualización.**
 
 ### S1 — Panel de mercado-año desde los agregados **(1–2 días)**
 Cargar `DemograficosLogs.dta`, `SalResMTL_N.dta`, `Informalidad.dta` y los `LongBartik*`. Construir el panel 777 × olas con: log empleo, log salario mediano residualizado, splits sectoriales, Bartik industrial.
@@ -135,6 +152,18 @@ Verificar calidad de `LLAVE_MUNICIPIO_TRABAJO`: ¿qué fracción no responde? ¿
 La migración censal se mide a **5 años** (`RES5A`), el diseño corre en diferencias de **10**.
 
 **Recomendación: vía asimétrica.** Shares desde `LLAVE_ENTIDAD_NAC` (stock de nacidos: cubre toda la historia migratoria, y es el objeto que usa Card 2001). Shift desde `RES5A`, declarando que mide media década y dejando `Z` en unidades explícitas. La alternativa (todo desde diferencias de stock por entidad de nacimiento) es coherente en horizonte pero mete migración de retorno y mortalidad diferencial en el shift.
+
+> ### ⚠️ ACTUALIZACIÓN 2026-09-01 — hay un argumento nuevo, y una restricción nueva
+>
+> **Argumento nuevo a favor de una tercera vía: el panel de 4 diferencias.** Las cinco olas dan 1990→2000, 2000→2010, **2010→2015** y **2015→2020** ⇒ **N = 3,108** en vez de 1,554. Las dos últimas son ventanas de **5 años**, que **alinean la ventana del resultado con la de `RES5A`** — es decir, resuelven de raíz la asimetría que motiva esta decisión, en vez de administrarla. Costo: mezclar ventanas de 10 y 5 años (hay que anualizar o meter efectos fijos de periodo) y meter la ola 2015, que es Intercensal y trae municipios con "muestra insuficiente" (`CAT_COBERTURA`).
+>
+> **Decisión recomendada:** núcleo en **diferencias de 10 años**; el **panel de 4 diferencias como especificación alterna**, que rinde dos cosas a la vez — potencia y alineación temporal de la migración.
+>
+> **Restricción nueva que no estaba contemplada: el origen son 32 estados y no hay más.** Existe `LLAVE_ENTIDAD_NAC` pero **no existe `LLAVE_MUNICIPIO_NAC`** — el censo no pregunta municipio de nacimiento. Municipio de origen solo es observable vía `LLAVE_MUNICIPIO_RES5A`. Dos consecuencias:
+> 1. Con K=32 el marco de muchos shocks de BHJ se tambalea ⇒ ver el segmento nuevo de §5 (número efectivo de shocks antes de S4) y la salida por celdas origen × sexo × educación (192).
+> 2. **Hay que excluir el estado propio del shift-share** (y probablemente los contiguos): el share de nacidos en el estado propio es de 70–90%, y 50 de los 777 mercados cruzan fronteras estatales. Si se incluye, el instrumento se vuelve "el empuje nacional del propio estado del mercado", que no es exógeno a nada. Va en la ecuación, no en un pie de página.
+>
+> **Y una objeción que hay que responder de frente**, encontrada en la búsqueda del 2026-09-01: **Hanson (2005), coautor de la propia base, rechaza explícitamente el instrumento de enclaves para México** — las tasas históricas de emigración estatal correlacionan con la acumulación de capital humano. Ver §4.3 de `PROPUESTA_v2_2026-09-01.md` para la respuesta y la prueba (es el balance de GPSS, figura F10 del cuaderno).
 
 ### 6.2 Transformaciones
 
