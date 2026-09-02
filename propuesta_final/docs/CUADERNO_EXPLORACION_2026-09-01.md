@@ -141,7 +141,19 @@ Esa última trampa es la más peligrosa, y es la que define la verificación S0.
 | **S5 · Forma reducida y 2SLS** (1 semana) | El número | — |
 | **S6 · Conmutantes** (3 días, paralelo) | Matriz municipal de conmutación 2010 y factibilidad del diseño DSS | Hay masa suficiente de gente que trabaja fuera de su municipio de residencia |
 
-**Nuevo, y va antes que S4:** calcular el **número efectivo de shocks** $1/\sum_o \hat{s}_o^2$ en cuanto existan los shares (fin de S2). Es más barato que la primera etapa y puede obligar a rehacer S2 con celdas. **No tiene sentido llegar a S4 con una construcción que ya se sabe insuficiente.**
+**Nuevo, y va antes que S4:** calcular el **número efectivo de shocks** $1/\sum_o \hat{s}_o^2$ en cuanto existan los shares (fin de S2). Es más barato que la primera etapa. **No tiene sentido llegar a S4 con una construcción que ya se sabe insuficiente.**
+
+### ⚠️ S1 bis — Construcción split-sample de las olas compartidas *(nuevo, 2026-09-01)*
+
+Va **inmediatamente después de S1** y antes de cualquier estimación.
+
+**El problema:** la ola **2010 es el punto final de 2000→2010 y el punto inicial de 2010→2020**, y ambas diferencias entran a la misma regresión. El ruido muestral de 2010 entra con signo opuesto en cada una — y lo mismo le pasa a `LogSalario`, calculado **de los mismos individuos**. Eso induce dependencia mecánica entre las dos observaciones del mismo mercado, concentrada en los 279 unimunicipales. El panel de 4 diferencias es peor: mete a 2015 (Intercensal) como punto final de dos diferencias contiguas.
+
+**La corrección:** construir los agregados de 2010 (y de 2015, si se conserva el panel de 4) a partir de **mitades disjuntas del microdato** — una mitad alimenta la diferencia que termina en esa ola, la otra la que empieza. Es el argumento de split-sample de Angrist-Krueger. **Cuesta un día y el microdato ya está en la máquina.**
+
+**Diagnóstico que produce:** $\beta$ estimado por separado en 2000→2010, en 2010→2020 y en las diferencias adyacentes a 2015. **Mientras no exista, el panel de 4 diferencias no puede presentarse como una especificación que gana potencia.**
+
+**Precisión sobre el signo:** el error de medición **clásico** en el regresor endógeno atenúa MCO y **no sesga 2SLS** — cuesta potencia. Lo que preocupa aquí es el error **no clásico** de la ola compartida, que puede mover el coeficiente en la misma dirección que el efecto esperado.
 
 ---
 
@@ -273,10 +285,18 @@ Cada entrada trae cuatro campos fijos: **qué muestra · qué la alimenta · qu�
 ### F12 · Las tres columnas, lado a lado — **con la predicción escrita antes**
 - **Qué muestra:** $\varepsilon_D$ estimada tres veces, sobre empleo total, transable y no transable, con sus intervalos de confianza en la misma escala. Y por partida doble: con la bandera `LLAVE_EXPORTADORA` de la casa y con la bandera propia.
 - **Qué la alimenta:** `LongBartikNacional_Trade0/_Trade1` (ya verificado que traen empleo sectorial) y la reconstrucción propia desde `LLAVE_ACTECONOMICA`.
-- **★ Qué esperamos, y esto es una predicción, no una esperanza:** **no transables debe salir MÁS elástico que transables.** Si los migrantes desplazan la demanda de trabajo vía consumo, el efecto está en los bienes que se consumen donde se producen. La estimación transable es la limpia.
-- **Mala noticia — y hay dos, distintas:**
-  1. **Que salgan iguales.** Entonces o el canal consumidor no opera, o la clasificación sectorial no lo separa. La segunda es más probable **con la bandera de la casa**, que mete el transporte urbano de pasajeros del lado transable. Por eso van las dos banderas.
-  2. **Que transables salga infinitamente elástico** (coeficiente estadísticamente nulo). No es un fracaso: es insensibilidad de precios de factores, y significa que el mercado no está especializado. Pero hay que anticiparlo para no leerlo como instrumento débil.
+- **⚠️ Degradada de "prueba" a "evidencia congruente" tras la crítica del 2026-09-01.** El contraste **no puede** probar el canal consumidor, por dos razones independientes:
+  1. **El signo es teóricamente ambiguo.** El canal consumidor predice *no transables más elástico*; la insensibilidad de precios de factores predice *transables más elástico* (demanda de trabajo infinitamente elástica en un sector abierto). **Empujan en direcciones opuestas y ningún signo observado los distingue.**
+  2. **Los dos errores conocidos de la bandera de la casa achican la brecha en la misma dirección** — transporte urbano de pasajeros del lado transable, turismo del lado no transable — es decir, sesgan hacia concluir que el canal consumidor **no** opera. Un modo de falla que confirma la lectura cómoda es el peor modo de falla posible.
+- **Qué se reporta entonces:** la brecha como **cota** y como descripción del grado de apertura sectorial de cada mercado, con las **dos banderas** y declarando la dirección del sesgo de la de la casa. Si algo se espera, es que no transables salga más elástico — pero **no se puede concluir el canal consumidor de ahí**.
+- **★ La prueba del canal consumidor es F13**, no ésta.
+
+### ★ F13 · El diseño de conmutantes — **la prueba del canal consumidor** *(promovida 2026-09-01)*
+- **Qué muestra:** a nivel **municipio dentro de mercado**, la respuesta salarial a dos choques de oferta distintos: (i) por residentes que llegan —aportan trabajo **y** gasto— y (ii) por conmutantes que trabajan ahí sin residir ahí —aportan trabajo **sin** gasto.
+- **Qué la alimenta:** `LLAVE_MUNICIPIO` × `LLAVE_MUNICIPIO_TRABAJO` del microdato (2010 seguro; 2000/2015/2020 según S0).
+- **Qué esperamos:** el choque de conmutantes debe producir una **caída salarial mayor** que el de residentes del mismo tamaño. La diferencia entre ambas respuestas **es** el canal consumidor, medido en vez de supuesto. Es la lógica de Dustmann-Schönberg-Stuhler trasplantada.
+- **Por qué esto sí es una prueba y el corte sectorial no:** neutraliza el gasto local **por construcción**, no por supuesto sobre qué sector es transable. No depende de ninguna clasificación industrial ni del grado de apertura comercial.
+- **Mala noticia:** que no haya masa suficiente de conmutantes intermunicipales dentro de mercado — pero eso es improbable, porque la conmutación densa es literalmente el criterio con el que se construyeron los 777 mercados. Lo que sí puede pasar es que `MUNICIPIO_TRABAJO` esté mal respondido; eso se ve en S0.
 
 ### T5 · Exposición a remesas
 - **Qué muestra:** por mercado-año, la fracción de hogares que reportan `LLAVE_INGRESO` = 4 (internacionales) y = 5 (internas).

@@ -13,7 +13,22 @@ Tres cosas, y las tres importan.
 
 1. **Los datos están en la máquina.** 21 GB en `data/`: los 29 agregados de mercado-año, el microdato de personas de las cinco olas y el de vivienda. Varias preguntas que estaban abiertas ya se contestaron contra los `.dta` reales, no contra el diccionario (§3).
 2. **El mensaje de política sube al centro.** La tesis deja de ser "estimo un parámetro que nadie ha estimado" y pasa a ser "entrego la mitad faltante de un par de elasticidades con la que se puede predecir la incidencia de una política". Hay además una prueba de consistencia que sale gratis (§5).
-3. **⚠️ El claim de "casilla vacía" se corrige.** La búsqueda de esta sesión encontró dos antecedentes mexicanos directos —Mishra (2007) y Hanson (2005)— y, más grave, encontró que **Hanson rechaza explícitamente el instrumento de enclaves para México**. Eso no mata la tesis, pero cambia cómo hay que escribirla y obliga a una respuesta frontal en §4.3. Es el cambio más importante de esta versión.
+3. **⚠️ El claim de "casilla vacía" se corrige.** La búsqueda de esta sesión encontró dos antecedentes mexicanos directos —Mishra (2007) y Hanson (2005)— y, más grave, encontró que **Hanson rechaza explícitamente el instrumento de enclaves para México**. Eso no mata la tesis, pero cambia cómo hay que escribirla y obliga a una respuesta frontal en §4.3.
+
+### ⚠️ Correcciones aplicadas tras la crítica del 2026-09-01
+
+Este documento se sometió al agente `critic` el mismo día en que se escribió. La crítica (`critique/propuesta_v2_critique_2026-09-01.md`, veredicto: **parcialmente sustentada**) encontró **dos afirmaciones sobreafirmadas y un error algebraico**. Están corregidas en el cuerpo; se listan aquí porque el registro de qué se creyó y por qué era falso vale más que el texto limpio.
+
+| Dónde | Se afirmaba | Corrección |
+|---|---|---|
+| **§5 Rama A** | Las dos formas reducidas del Bartik dan una "prueba de sobreidentificación gratis" | **Error algebraico, verificado con simulación.** El Bartik es un proxy de escala desconocida $\lambda$: la forma reducida salarial identifica $\lambda/(\varepsilon_D+\varepsilon_S)$, no $1/(\varepsilon_D+\varepsilon_S)$. El cociente sí da $\varepsilon_S$; la "segunda estimación" exige $\lambda=1$. **Dada $\hat\varepsilon_D$ el sistema queda exactamente identificado: no hay nada que probar.** Se sustituye por un diagnóstico de $\lambda$ y por un **test de pendiente** contra la mordida del salario mínimo, que sí es sobreidentificante |
+| **§4.5** | El corte transable/no transable es **la prueba** del canal consumidor | Bajo insensibilidad de precios de factores el contraste empuja en **dirección opuesta**: ningún signo observado distingue las dos hipótesis. Y los dos errores de la bandera de la casa **achican la brecha en la misma dirección**, sesgando hacia la lectura cómoda. Baja a *evidencia congruente*; **la prueba es el diseño de conmutantes** |
+| **§3.3c** | Las remesas cierran la amenaza V3 | Miden **otro** desplazador. El gasto del migrante interno donde vive **no genera remesa** ⇒ invisible a `CAT_INGRESOS`. V3 **reabierta como parcial** |
+| **§1** | La banda $\lvert\varepsilon_D\rvert\in[3,10]$ como ancla, y el 2.5 de Mishra como "contraste tranquilizador" | La banda **no tiene fuente** y su extremo superior es el recíproco de no-rechazos. Superar a Mishra está **garantizado mecánicamente** por el sesgo de los diseños de área. Se reformula como cota inferior con sesgo declarado |
+| **§4.2** | "F ≥ 10 es el go/no-go" | F efectiva de **Montiel Olea-Pflueger** con SEs a nivel shock, y **conjuntos de Anderson-Rubin** para $\varepsilon_D$, que es un recíproco. **La N efectiva de inferencia es de un dígito**, no 1,554 |
+| **§3.3b** | Las celdas origen×sexo×educación arreglan el instrumento débil | Mejoran el **diagnóstico** sin mejorar la identificación; un Herfindahl sobre 192 se ve ~6× mejor gratis. Y definir celdas por educación camina hacia la objeción de Hanson |
+| **§3.5** | Los mercados chicos son una robustez | Es una **decisión de construcción**: las olas compartidas (2010, 2015) inducen error de medición no clásico con el mismo signo que $\beta$. Fix: **split-sample**, un día |
+| **§7** | V10 y V14 cerradas | **Reabiertas.** V14 pasó de periférica a sostener toda la Rama A sin verificarse |
 
 ---
 
@@ -62,11 +77,15 @@ Ambos usan **emigración a Estados Unidos** como el choque de oferta. Lo que no 
 
 MRRH (2018, AER) reportan la **elasticidad de empleo local de equilibrio**, que mezcla oferta, demanda y conmutación. No es un sustituto de lo que se estima aquí: es una función de ello. La pendiente de la demanda es un **insumo** de su modelo. Presentar ambos números como si compitieran sería un error de categoría, y hay que decirlo antes de que alguien lo pregunte.
 
-### Un ancla numérica, corregida
+### Un ancla numérica, y por qué hay que tratarla con cuidado
 
-⚠️ El rango clásico $\lvert\varepsilon_D\rvert \approx 0.25\text{–}0.7$ (Lichter, Peichl y Siegloch, 2015, *EER*) **no aplica a este número**: mide la elasticidad propia a nivel industria o empresa, con capital fijo. Aquí se estima una elasticidad **local y de largo plazo**, donde ajustan el capital, la entrada de empresas y la composición industrial. La literatura de mercados locales implica $\lvert\varepsilon_D\rvert$ de **3 a 10**, y el 2.5 implícito en Mishra (2007) cae justo debajo de esa banda — un contraste externo tranquilizador.
+⚠️ El rango clásico $\lvert\varepsilon_D\rvert \approx 0.25\text{–}0.7$ (Lichter, Peichl y Siegloch, 2015, *EER*) **no aplica a este número**: mide la elasticidad propia a nivel industria o empresa, con capital fijo. Aquí se estima una elasticidad **local y de largo plazo**, donde ajustan el capital, la entrada de empresas y la composición industrial.
 
-**Si $\varepsilon_D$ sale en 0.4, hay que desconfiar, no celebrar.**
+**Pero la banda de 3 a 10 que se venía manejando no tiene fuente y no debe presentarse como un ancla.** Se construye invirtiendo los efectos salariales reportados en la literatura de inmigración, y su extremo superior es el **recíproco de no-rechazos**: una elasticidad de 10 es lo que se obtiene al invertir un efecto salarial estadísticamente indistinguible de cero. Eso no es una estimación.
+
+⚠️ **Y el contraste con Mishra es mecánico, no informativo.** Que este número supere al 2.5 implícito en Mishra (2007) está **garantizado por el diseño**, no por la economía: los estudios de área subestiman la respuesta salarial porque el desplazamiento de nativos y los derrames entre mercados diluyen el choque —es la queja clásica de Borjas contra los diseños de área— y al invertir, eso infla $\lvert\varepsilon_D\rvert$. Superar a Mishra confirma un artefacto conocido.
+
+⇒ **Cómo se presenta:** el 2.5 de Mishra es una **cota inferior con sesgo declarado en dirección conocida**, no un blanco. La especificación 8 (desplazamiento de nativos) es la que acota cuánto de la brecha es artefacto. Y la **especificación núcleo se pre-registra por escrito antes de correr S4** —bandera, ventana, ponderación, regla de exclusión de orígenes, 2015 dentro o fuera, concepto de salario— y se reporta primero, salga el número que salga. Con esta cantidad de grados de libertad del investigador, "desconfiar de las desviaciones de una banda" es una invitación a la búsqueda de especificación.
 
 ---
 
@@ -177,10 +196,23 @@ Decir esto explícitamente en la tesis vale más que hacerlo mal.
 
 **(b) El origen del instrumento son 32 estados y no hay más.**
 Existe `LLAVE_ENTIDAD_NAC` pero **no existe `LLAVE_MUNICIPIO_NAC`**: el censo no pregunta municipio de nacimiento. Con $K=32$, el marco de "muchos shocks" de BHJ se tambalea y el número efectivo de shocks va a estar dominado por media docena de estados expulsores.
-⇒ **Decisión:** (i) calcular y reportar el número efectivo de shocks **antes** de escribir §4; (ii) expandir el origen a **celdas** estado × sexo × grupo de educación (192), que es lo que hace Card (2001) con origen × ocupación; (iii) si `MUNICIPIO_RES5A` resulta poblado en 1990, construir shares a nivel municipio de origen (2,469) — más rico y más fiel a Card.
+⇒ **Decisión:** (i) calcular y reportar el número efectivo de shocks **antes** de escribir §4; (ii) si `MUNICIPIO_RES5A` resulta poblado en 1990, construir shares a nivel municipio de origen (2,469) — más rico y más fiel a Card. **Ésta es la única salida que agrega variación de verdad, y depende enteramente de S0.**
 
-**(c) La base mide remesas, y eso convierte una amenaza en una variable.**
-`CAT_INGRESOS` clave **4** = *"ayuda de personas que viven en otro país"* y clave **5** = *"ayuda de personas que viven dentro del país"*. Las remesas eran la amenaza V3 de la crítica de julio; ahora son observables. Tres usos: control del desplazador de demanda que no viene del trabajo; validación de que las remesas internas fluyen al **origen** y no al destino; y como resultado propio.
+⚠️ **Y una advertencia sobre las celdas, que la versión anterior proponía como el arreglo.** Expandir el origen a celdas estado × sexo × educación (192) **mejora el diagnóstico sin mejorar la identificación**:
+- Si los shifts **no varían dentro del estado**, $Z$ es **numéricamente idéntico** al de 32 orígenes. No cambia nada.
+- Si varían, las 192 celdas comparten un componente estatal dominante, así que el número efectivo de shocks sigue anclado al cúmulo estatal.
+- Partir un origen en 6 celdas parte su peso de Rotemberg en 6 pedazos **movidos por el mismo shock** ⇒ un Herfindahl sobre 192 se ve **~6 veces mejor gratis**. Es cosmética, no identificación.
+- Y definir celdas por **educación** camina directo hacia la objeción de Hanson (§4.3), que es precisamente sobre capital humano.
+
+⇒ Si se usan celdas, hay que **demostrar** que los shifts varían dentro de estado, y reportar el número efectivo de shocks y la concentración de Rotemberg **a nivel celda y a nivel estado, en la misma tabla**. Si el número a nivel estado no se mueve, las celdas **no** son la respuesta al instrumento débil y no deben presentarse como tal.
+
+**(c) La base mide remesas — pero miden otro desplazador, no el que preocupa.**
+`CAT_INGRESOS` clave **4** = *"ayuda de personas que viven en otro país"* y clave **5** = *"ayuda de personas que viven dentro del país"*.
+
+⚠️ **Corrección respecto de la primera redacción de esta sección: esto NO cierra la amenaza V3.** V3 decía que *el desplazador de oferta también desplaza la demanda local de no transables*, y el canal concreto es **el migrante interno que llega y gasta su salario donde vive**. Ese gasto **no genera ninguna remesa** y por lo tanto es **invisible** a `CAT_INGRESOS`. Medible ≠ neutralizado, y además lo que se mide contesta otra pregunta.
+
+Lo que las remesas sí aportan, que no es poco: (i) un **desplazador de demanda local de otra fuente**, observable, que sirve de control y de prueba de heterogeneidad; (ii) la validación de un supuesto **distinto y más débil** — que las remesas internas fluyen al **origen** y no al destino.
+El canal de consumo del migrante interno sigue sin neutralizar. Su tratamiento real es el **diseño de conmutantes** (§4.5).
 ⚠️ En 2015 y 2020 el detalle se asignó al jefe de hogar ⇒ usar a nivel hogar o mercado, nunca individuo.
 
 **(d) El diseño de conmutantes tiene que bajar de nivel.**
@@ -194,10 +226,19 @@ Los 777 mercados se construyeron **precisamente** para internalizar la conmutaci
 3. **Migración agregada a nivel mercado.** La nota lo dice (fn. 18): está fuera del alcance de esta etapa del proyecto. **Todo el instrumento se construye desde cero.**
 4. **Capital, producto y establecimientos.** Si el mapeo $\varepsilon_D \to \sigma$ pasara de discusión a estimación, harían falta Censos Económicos.
 
-### 3.5 Dos problemas de medición que hay que administrar
+### 3.5 ⚠️ El error de medición: no es una robustez, es una decisión de construcción
 
-- **279 de 777 mercados (36%) son un solo municipio.** Rurales, muestra delgada. Con `DLogEmpleoMTL` y `LogSalario` construidos de muestras chicas, el error de medición en el regresor endógeno atenúa MCO e interactúa con la fuerza del instrumento. ⇒ **Ponderar por empleo; robustez sin el cuartil más chico.**
-- **La ola 2015 es una encuesta, no un censo**, y `CAT_COBERTURA` marca municipios con *"muestra insuficiente"*. ⇒ Considerar 2015 fuera del núcleo y usarla como ola de robustez.
+Esta subsección se reescribió tras la crítica del 2026-09-01. La versión anterior trataba esto como un caveat de mercados chicos; es más serio que eso.
+
+**El problema estructural: las olas compartidas.** La ola **2010 es el punto final de la diferencia 2000→2010 y el punto inicial de 2010→2020**, y ambas entran a la misma regresión agrupada. El ruido muestral $u_l$ de la ola 2010 entra con signo $+$ en la primera diferencia y con signo $-$ en la segunda — y hace lo mismo con $\ln w$, calculado **de los mismos individuos**. Eso induce dependencia mecánica entre las dos observaciones del mismo mercado, y si el ruido de empleo y el de salario están correlacionados dentro de la misma muestra —que es lo esperable, porque salen del mismo sorteo— contamina la covarianza que $\beta$ estima. **Está concentrado exactamente en los 279 mercados unimunicipales.** El panel de 4 diferencias es *peor*, no mejor: mete a 2015 (Intercensal, muestra ~5.9%) como punto final de dos diferencias contiguas.
+
+**La corrección, y es barata:** construir los agregados de las olas que sirven de punto final a dos diferencias contiguas (2010, y 2015 si se conserva el panel de 4) a partir de **mitades disjuntas del microdato** — una mitad alimenta la diferencia que termina en esa ola, la otra la que empieza. Es el argumento de split-sample de Angrist-Krueger. **Cuesta un día y los datos ya están en la máquina.** Mientras no exista, el panel de 4 diferencias **no puede presentarse como una especificación que "gana potencia"**.
+
+**Diagnóstico obligatorio:** reportar $\beta$ estimado por separado en 2000→2010, en 2010→2020 y en las diferencias adyacentes a 2015. Si difieren de forma sistemática, la fuente es ésta.
+
+**Precisión sobre el signo, que la versión anterior de este documento tenía suelta:** el error de medición **clásico** en el regresor endógeno atenúa MCO y **no sesga 2SLS** — cuesta potencia y debilita la primera etapa, nada más. Lo que preocupa aquí es el error **no clásico** que induce la ola compartida.
+
+**Y siguen valiendo las dos administraciones ordinarias:** ponderar por empleo y reportar robustez sin el cuartil más chico; y tratar la ola 2015 (encuesta, con municipios marcados *"muestra insuficiente"* en `CAT_COBERTURA`) como ola de robustez y no de núcleo.
 
 ### 3.6 Comparabilidad — la letra chica que va en la sección de datos
 
@@ -221,7 +262,7 @@ Construidos del microdato con `LLAVE_ENTIDAD_NAC` + el crosswalk municipio→mer
 
 | # | Especificación | Signo esperado |
 |---|---|---|
-| 1 | Primera etapa: $\Delta \ln L_l$ sobre $Z_l$ | $\pi > 0$, **F ≥ 10 es el go/no-go** |
+| 1 | Primera etapa: $\Delta \ln L_l$ sobre $Z_l$ | $\pi > 0$; el go/no-go es la **F efectiva**, no la convencional (ver abajo) |
 | 2 | Forma reducida: $\Delta \ln w_l$ sobre $Z_l$ | $< 0$ |
 | 3 | MCO: $\Delta \ln w_l$ sobre $\Delta \ln L_l$ | menos negativo que IV (sesgo de demanda) |
 | 4 | **2SLS** | $\beta \in [-0.3, -0.1]$ ⇒ $\lvert\varepsilon_D\rvert \in [3,10]$ |
@@ -232,7 +273,15 @@ Construidos del microdato con `LLAVE_ENTIDAD_NAC` + el crosswalk municipio→mer
 
 **Controles, en columnas acumulativas:** efectos fijos de periodo → **el Bartik industrial de la base** (purga la demanda local; posiciona la tesis frente al mimeo, que lo usa como instrumento) → composición demográfica y educativa inicial → participación industrial inicial → exposición a remesas.
 
-**Ventana.** Núcleo en **diferencias de 10 años** (2000→2010, 2010→2020; N = 1,554), con 1990→2000 reservado como placebo. Alterna: el **panel de 4 diferencias** (N = 3,108), que además **alinea la ventana del resultado con la de `RES5A`** en 2010→2015 y 2015→2020 — resolviendo de paso la asimetría de §4.1, al costo de mezclar ventanas y de meter la ola 2015.
+**Ventana.** Núcleo en **diferencias de 10 años** (2000→2010, 2010→2020; N = 1,554), con 1990→2000 reservado como placebo. Alterna: el **panel de 4 diferencias** (N = 3,108), que además **alinea la ventana del resultado con la de `RES5A`** en 2010→2015 y 2015→2020 — resolviendo de paso la asimetría de §4.1, al costo de mezclar ventanas y de meter la ola 2015. ⚠️ **Condicionado a la construcción split-sample de §3.5**: sin ella el panel de 4 diferencias no gana potencia, la empeora.
+
+### ⚠️ 4.2 bis — La inferencia, que no es la convencional
+
+Tres correcciones que cambian el criterio de decisión, no solo los errores estándar.
+
+1. **N no es 1,554.** Adão, Kolesár y Morales (2019) muestran que en un diseño shift-share la unidad efectiva de inferencia es el **shock**, no la observación. Con ~6 orígenes de peso alto, **el tamaño de muestra efectivo de esta tesis es de un dígito.** Eso cambia qué se puede afirmar, cambia el criterio de primera etapa y descarta buena parte de las robusteces que tendrían sentido con N=1,554. El cálculo de potencia —pendiente desde hace tres sesiones— hay que hacerlo sobre esa N, no sobre la nominal.
+2. **La F convencional está inflada** por la misma razón: los errores estándar shift-share convencionales sobre-rechazan. El criterio es la **F efectiva de Montiel Olea-Pflueger** con errores estándar agrupados a nivel shock. Y el umbral de 10 de Stock-Yogo **no es válido bajo agrupamiento**.
+3. **El parámetro de interés es un recíproco.** $\varepsilon_D = -1/\beta$: si el intervalo de $\hat\beta$ incluye el cero, el de $\varepsilon_D$ es no acotado o disconexo, y el método delta sobre $1/\hat\beta$ da un intervalo falso. ⇒ **Conjuntos de confianza de Anderson-Rubin** para $\varepsilon_D$, no intervalos por método delta.
 
 ### 4.3 ⚠️ La objeción de Hanson, y la respuesta
 
@@ -244,14 +293,22 @@ Hanson (2005), coautor de la propia base que se usa aquí, **rechaza explícitam
 
 Es la misma objeción que Jaeger, Ruist y Stuhler (2018) formalizan: **los shares de enclave son persistentes, así que correlacionan con todo lo que sea persistente** — incluida la formación de capital humano y las tendencias locales de largo plazo.
 
-**Cuatro respuestas, y ninguna es completa por sí sola:**
+**⚠️ Esta subsección se reescribió tras la crítica del 2026-09-01.** La versión anterior daba cuatro respuestas; dos no cargan peso y una era contraproducente. Conviene registrar por qué, porque el error es instructivo.
 
-1. **El objeto no es el mismo.** Hanson analiza el **origen**: cómo le fue a la gente nacida en estados de alta emigración. Esta tesis analiza el **destino**: cómo le fue a un mercado según la composición por origen de *quienes ya vivían ahí*. Su mecanismo de contaminación —la emigración moldea el capital humano de quien nace ahí— opera sobre el individuo en su estado natal, no sobre el mercado receptor. **No lo mata, pero cambia la dirección del sesgo y hay que argumentarlo, no asumirlo.**
-2. **Es migración interna, no emigración.** El canal de Hanson pasa por la *opción* de emigrar a Estados Unidos y su efecto sobre el retorno esperado a la educación. La migración interna no tiene ese premio salarial y ese canal se debilita.
-3. **El salario está residualizado por edad y educación** (`ResIngresoEE`, ya construido en la base). Si el mecanismo es composición de capital humano, residualizar absorbe buena parte.
-4. **Y sobre todo: es una hipótesis testeable, no una condena.** Es exactamente lo que miden las pruebas de balance de GPSS. Si los shares de peso alto predicen niveles pre-periodo de escolaridad, salario o pobreza, Hanson tiene razón y hay que recentrar (Borusyak-Hull 2023) o cambiar de diseño.
+**Lo que NO funciona:**
 
-⇒ **En la tesis, esto no es una amenaza escondida: es una sección.** Se cita a Hanson, se corre el balance, y se reporta el resultado sea cual sea.
+- ~~*"El objeto no es el mismo: Hanson mira el origen, nosotros el destino."*~~ **Es un movimiento retórico, no un argumento.** La restricción de exclusión pide $E[s_{ol}\cdot\epsilon_l]=0$, donde $\epsilon_l$ es el residual de crecimiento salarial **del destino**. El mecanismo de Hanson llega al destino a través de **la composición de su fuerza de trabajo**: si los nacidos en estados de alta emigración traen una dotación de capital humano distinta, eso entra en $\epsilon_l$. Reubicar al observador no corta la cadena causal.
+- ~~*"El salario está residualizado por edad y educación."*~~ **Es peor que neutral.** La educación es un resultado **post-tratamiento** del propio mecanismo de Hanson; condicionar sobre ella es un mal control. Y además vuelve el concepto de salario inconsistente con el de empleo, que es un conteo de cabezas sin residualizar.
+- *"Es migración interna, no emigración"* — **apunta al canal equivocado.** El problema no es que el canal de Hanson opere directamente, sino que **los estados de alta emigración a EE.UU. y los de alta emigración interna son casi el mismo conjunto**. Hanson contamina por correlación, no por mecanismo.
+
+**Lo que sí funciona — y es evidencia, no argumento:**
+
+1. **Regresar los shares de peso alto contra la tasa estatal de emigración a Estados Unidos.** Si cargan, "es otro fenómeno" queda empíricamente refutado y hay que decirlo. Es una regresión y se puede correr en S2.
+2. **Reportar el resultado principal con `LogSalario` además de `ResIngresoEE`.** Si el número se mueve mucho al residualizar, el mecanismo de composición está vivo.
+3. **El placebo de pre-tendencia** (F11 del cuaderno). ⚠️ **Rehén de S0**: si `RES5A` no está poblado en 1990, este placebo hay que rediseñarlo — y hay que decirlo en §7, no descubrirlo después.
+4. **El balance de GPSS** contra niveles pre-periodo. Si carga, hay que recentrar (Borusyak-Hull 2023) o cambiar de diseño.
+
+⇒ **En la tesis esto es una sección, no un pie de página.** Se cita a Hanson, se **concede** que el mecanismo alcanza al destino vía composición, y se contesta con las cuatro piezas de evidencia — reportando el resultado sea cual sea.
 
 ### 4.4 Pruebas de exogeneidad — los dos regímenes
 
@@ -277,7 +334,17 @@ Los migrantes hacen cuatro cosas y solo dos son amenazas:
 | (c) Inducen entrada de capital y de empresas | **No.** *Es* la definición de la elasticidad local de largo plazo | Se declara; es por qué el ancla es 3–10 y no 0.25–0.7 |
 | (d) Se derraman a otros mercados | **Sí.** SUTVA | Desplazamiento de nativos (espec. 8); exposición de vecinos estilo Helm |
 
-El corte sectorial deja de ser robustez y pasa a ser **la prueba**: si el canal consumidor importa, no transables debe salir más elástico que transables. Con la advertencia de §3.3(a): primero hay que arreglar la definición de transable.
+#### ⚠️ El corte sectorial NO es la prueba — corrección del 2026-09-01
+
+La versión anterior de este documento promovía el corte transable/no transable de robustez a **prueba** del canal consumidor. **Está mal, por dos razones independientes, y cada una basta.**
+
+**Primera: el signo es teóricamente ambiguo.** Bajo insensibilidad de precios de factores, la demanda de trabajo en un sector transable abierto tiende a ser **infinitamente elástica**. Eso empuja el contraste en **dirección opuesta** a la que predice el canal consumidor. El canal consumidor dice "no transables más elástico"; la apertura comercial dice "transables más elástico". **Ningún signo observado de la brecha distingue entre las dos hipótesis.** La versión anterior mencionaba la insensibilidad de precios de factores como un caveat interpretativo — pero es un **confusor de la prueba**, no una nota al pie.
+
+**Segunda: los dos errores conocidos de la bandera de la casa sesgan en la misma dirección.** Meter el transporte urbano de pasajeros (SCIAN 485) del lado transable y sacar el turismo del lado transable **achican la brecha las dos**. Es decir, sesgan hacia concluir que el canal consumidor **no** opera — que es justo la lectura cómoda. Un modo de falla que confirma la hipótesis preferida del autor es el peor modo de falla posible.
+
+⇒ **Reclasificación:**
+- El **corte sectorial** es *evidencia congruente* y una descripción del grado de apertura sectorial de los mercados. Se reporta como cota, con las dos banderas, declarando la dirección del sesgo de la de la casa.
+- **La prueba del canal consumidor es el diseño de conmutantes** a nivel municipio dentro de mercado (§3.3d): quien trabaja en un municipio sin residir en él aporta oferta laboral **sin** aportar gasto local. Neutraliza el canal **por construcción**, que es lo que el corte sectorial no hace. Estaba catalogado como "el diferenciador"; **sube a ser la prueba.**
 
 ---
 
@@ -304,14 +371,33 @@ Con $\varepsilon_D$ sola no se predice nada. **Con el par se predice la incidenc
 
 **Alcance:** 3–5 páginas · **Identificación propia:** ninguna · **Cabe en el recorte congelado:** sí, entero.
 
-**Y trae una prueba de sobreidentificación que sale gratis.** Las regresiones de Bartik —las del mimeo, reproducibles desde `LongBartikNacional.dta` + `SalResMTL_N.dta`, que ya están en `data/`— dan las respuestas de **equilibrio**:
+#### ⚠️ La "prueba de sobreidentificación gratis" NO existe — corrección del 2026-09-01
 
-- $\Delta \ln L$ sobre Bartik $\;\Rightarrow\; \varepsilon_S/(\varepsilon_D+\varepsilon_S)$
-- $\Delta \ln w$ sobre Bartik $\;\Rightarrow\; 1/(\varepsilon_D+\varepsilon_S)$
-- El cociente $\;\Rightarrow\;$ **una estimación de $\varepsilon_S$**
-- La segunda, con **tu** $\varepsilon_D$ $\;\Rightarrow\;$ **una segunda estimación de $\varepsilon_S$**
+La primera redacción de esta sección afirmaba que las dos formas reducidas del Bartik daban **dos** estimaciones de $\varepsilon_S$ que debían coincidir, y que eso era una restricción testeable del marco entero. **Es un error algebraico y hay que retirarlo.** Verificado con simulación.
 
-Que coincidan es una **restricción testeable de todo el marco**, y todos los insumos ya están publicados. Es también la respuesta más contundente a MRRH.
+El índice de Bartik $B$ **no es** el desplazador de demanda $D$: es un proxy de escala desconocida, $D = \lambda B + \nu$. Entonces:
+
+- $\Delta \ln L$ sobre $B \;\Rightarrow\; \lambda\,\varepsilon_S/(\varepsilon_D+\varepsilon_S)$
+- $\Delta \ln w$ sobre $B \;\Rightarrow\; \boldsymbol{\lambda}/(\varepsilon_D+\varepsilon_S)$ — **no** $1/(\varepsilon_D+\varepsilon_S)$
+- **El cociente $\;\Rightarrow\; \varepsilon_S$.** Esta parte sí sirve, y es **invariante a la escala del índice**: $\lambda$ se cancela.
+- La "segunda estimación" exigía $\lambda = 1$. Sin eso, la prueba **rechaza si y solo si $\lambda \neq 1$**: potencia total contra una normalización, potencia nula contra fallas del marco de oferta y demanda.
+
+Peor aún: dada $\hat\varepsilon_D$ quedan **dos incógnitas** ($\varepsilon_S$, $\lambda$) y **dos momentos** ⇒ el sistema está **exactamente identificado**. No sobra ninguna restricción que probar.
+
+**Lo que sí se puede hacer, y sigue valiendo la pena:**
+1. **Estimar $\varepsilon_S$** como cociente de las dos formas reducidas — invariante a $\lambda$, reproducible desde `LongBartikNacional.dta` + `SalResMTL_N.dta`, que ya están en `data/`.
+2. **Estimar $\lambda$** y reportarlo como **diagnóstico**: un $\hat\lambda$ lejos de 1 dice que el Bartik es un proxy ruidoso del desplazador de demanda. Es información útil sobre la base, no una prueba del marco.
+3. ⚠️ **Declarar el supuesto que todo esto requiere:** $\mathrm{Cov}(\text{Bartik}, \text{choque de oferta}) = 0$. **Cadena y Kovak (2016) lo ponen en duda** —los migrantes se dirigen a los mercados con demanda pujante— y ese trabajo **ya está en la bibliografía del proyecto** (Bloque E) sin haber sido citado aquí.
+
+⇒ Es un **diagnóstico de consistencia**, no una prueba de sobreidentificación. Y por lo tanto **no** es "la respuesta más contundente a MRRH": la respuesta a MRRH es la de §1, que es conceptual.
+
+#### ★ La prueba que sí existe: el test de pendiente contra la mordida del salario mínimo
+
+Sí hay una restricción sobreidentificante disponible, y es barata. En vez de predecir un **nivel** de empleo:
+
+$$\Delta \ln L_l^{\,2015\to2020} = a + b \cdot \text{mordida}_l + \epsilon_l, \qquad H_0:\; b = -\hat\varepsilon_D$$
+
+Se regresa el cambio de empleo observado contra la mordida del salario mínimo entre mercados y **se contrasta la pendiente contra $-\hat\varepsilon_D$**, con error estándar propagado. Es una restricción sobreidentificante genuina, tiene error estándar computable, y sus modos de falla son informativos. **Cuesta una regresión** y vive dentro de la Rama A.
 
 **Ventajas:** recupera el hilo fiscal que buscaba el Ensayo 2 congelado sin tocar a Correia ni las vulnerabilidades V10/V12/V13; la extensión natural es informalidad —el impuesto aplica solo al sector formal, genera una cuña— sin tener que identificar $\sigma_{FI}$; y la heterogeneidad espacial es el punto, que es lo que un panel de 777 mercados puede decir y una estimación nacional no.
 
@@ -338,11 +424,22 @@ Que coincidan es una **restricción testeable de todo el marco**, y todos los in
 
 **⚠️ El hueco, y es real:** las evaluaciones existentes usan **ENOE** —trimestral pero con geografía parcial— o comparan estados. **Nadie lo ha hecho al nivel de los 777 mercados con datos censales.**
 
-**★ Y la observación que puede decidir el asunto:** el salario mínimo es la **única** política del menú donde $\varepsilon_D$ no es un insumo sino el parámetro de interés:
+**★ La observación que hace atractiva a esta rama:** el salario mínimo es la **única** política del menú donde $\varepsilon_D$ no es un insumo sino el parámetro de interés:
 $$\Delta \ln L_l \approx -\varepsilon_D \times \text{mordida}_l$$
-Eso permite una **validación fuera de muestra**: estimar $\varepsilon_D$ con choques migratorios 1990–2010, predecir la respuesta del empleo al salario mínimo 2015→2020, y contrastar contra lo observado. Es la única del menú que conecta las dos ramas de forma no decorativa, y es la versión más convincente de "las dos juntas".
 
-**Riesgos de la Rama B, sin adornos:** duplica la carga empírica; obliga a defender **dos** identificaciones; la ventana post es de un año; y si la validación fuera de muestra falla, hay que reportarlo — con el riesgo de que el lector concluya que $\varepsilon_D$ está mal, cuando podría ser que el salario mínimo no fuera binding.
+**Riesgos, sin adornos:** duplica la carga empírica; obliga a defender **dos** identificaciones; la ventana post es de un año.
+
+#### ⚠️ Veredicto del referee sobre la Rama B (2026-09-01) — la decisión sigue siendo tuya
+
+La crítica recomienda **retirar la Rama B como rama de tesis** y quedarse con su único componente que tiene valor de prueba. Los dos argumentos, para que decidas con ellos a la vista:
+
+**1. La validación de *niveles* no puede fallar de manera informativa.** Predecir el nivel del empleo y compararlo con lo observado tiene cuatro desenlaces, y **tres son ininterpretables**: el mínimo pudo no ser vinculante; el empleo pudo reasignarse al sector informal en vez de desaparecer; o puede haber monopsonio, en cuyo caso un mínimo vinculante *sube* el empleo. El cuarto desenlace —que coincidan— es numéricamente indistinguible de la hipótesis nula. **Una prueba cuyos modos de falla no distinguen hipótesis no es una prueba.**
+
+**2. El costo choca con el calendario.** Son 4–6 semanas adicionales sobre un plan de 4 semanas cuyo núcleo **todavía no corre**. Que la tabla comparativa lo declare honestamente ("¿cabe en el alcance congelado? No") no lo vuelve inocuo: la sección ya existe, está desarrollada, y consumió esfuerzo de diseño mientras S0 sigue abierto.
+
+⇒ **Lo que la crítica propone conservar:** el **test de pendiente** descrito arriba en la Rama A — regresar $\Delta \ln L$ observado 2015→2020 contra la mordida y contrastar la pendiente contra $-\hat\varepsilon_D$. Eso **sí** es una restricción sobreidentificante, cuesta una regresión, y vive dentro de la Rama A sin abrir una segunda identificación.
+
+⇒ **Y una nota de secuencia que la crítica subraya, por tercera vez en este proyecto:** esta decisión no debería tomarse ahora. Si el instrumento no tiene fuerza, la Rama B es irrelevante porque no hay $\varepsilon_D$ que validar. **Decidir después de S4.**
 
 ---
 
@@ -389,18 +486,41 @@ Total ≈ 45–55 páginas. Las etiquetas F#/T# remiten al `CUADERNO_EXPLORACION
 | **R5** | `RES5A` no poblado en 1990 ⇒ no hay shift para la primera diferencia | **Abierto — verificación S0** | Tabular la categoría "sin valor" por ola |
 | **R6** | Scooping: la nota anuncia que los módulos de migración entran *"in the next stage"* | Abierto | Correo a EconLab. **Decisión previa: preguntar puede prevenir o invitar el scooping** |
 | **R7** | Sin deflactor espacial, el salario real está mal medido entre mercados | Identificado | Caveat + robustez con INPC por ciudad (46 ciudades) |
+| **R8** | **Error de medición no clásico entre diferencias contiguas** (§3.5). Puede fabricar mecánicamente el signo de $\beta$ | **Nuevo, 2026-09-01** | Construcción **split-sample** de las olas compartidas. Un día de trabajo |
+| **R9** | **La N efectiva de inferencia es de un dígito**, no 1,554 (§4.2 bis) | **Nuevo** | F efectiva de Montiel Olea-Pflueger, SEs a nivel shock, conjuntos AR. Y rehacer el cálculo de potencia sobre esa N |
 | V1 | MRRH estiman otra cosa | **Cerrado** | §1, va en la página 1 |
-| V3 | Remesas contaminan el destino | **Cerrado** | Ahora son medibles (§3.3c) |
-| V5, V10, V12, V13 | Informalidad, brecha local-agregado, ruteo de parámetros a Correia | **Cerrados por alcance** | Ensayo 2 congelado |
+| V3 | El desplazador de oferta también desplaza la demanda local | **⚠️ REABIERTO — parcial, no cerrado** | Las remesas miden **otro** desplazador; el gasto del migrante interno no genera remesa (§3.3c). Lo cierra el diseño de conmutantes |
+| V10 | Qué se mantiene fijo y a qué horizonte en el objeto estimado | **⚠️ REABIERTO** | No era sobre $\sigma$. Vive ahora en §4.5(c) —"la entrada de capital *es* la definición" es una declaración, no una identificación— y en la aritmética de incidencia. **Escribir el estimando en una página; sigue sin ejecutarse** |
+| V14 | Alinear tu $\varepsilon_D$ con la $\varepsilon_S$ del mimeo | **⚠️ REABIERTO y ascendido** | Era periférico; hoy **sostiene toda la Rama A** sin haber pasado por verificación. Requiere: mismos mercados, olas, longitud de diferencia, concepto de salario y de empleo, ponderación y controles. Todo incontrolable desde este lado ⇒ **otra razón para el correo a EconLab** |
+| V15 | Se optimiza la capa siguiente mientras la espina está bloqueada | **⚠️ RECURRE, 3ª vez** | §5 es más larga y está más desarrollada que §4.4, y §4.4 es donde se decide si hay tesis. Es orden de ejecución, no alcance |
+| V5, V12, V13 | Informalidad, ruteo de parámetros a Correia | **Cerrados por alcance** | Ensayo 2 congelado |
 
 ---
 
-## §8. Siguientes pasos
+## §8. Siguientes pasos — **el orden importa más que la lista**
 
-1. **S0 — la única verificación que sigue bloqueando:** tabular si `ENTIDAD_RES5A`, `MUNICIPIO_RES5A` y `MUNICIPIO_TRABAJO` están **pobladas** por ola (las columnas existen; falta el contenido).
-2. **Descargar la carpeta `Códigos` de SIDIE** — el código Stata de construcción de los agregados. Resuelve solo varias preguntas de replicación y es el primer insumo de S1.
-3. **Descargar las seis lecturas del Nivel 1.** Pendiente de tres sesiones, y ahora bloquea la redacción de §4: DSS 2017 → Card 2001 → BHJ 2025 JEP → GPSS 2020 → JRS 2018 → MRRH 2018.
-4. **Verificar la referencia publicada de Hanson (2005)** antes de citarla — el PDF localizado es un working paper de abril de 2005 para una conferencia del NBER.
-5. **Correo a econlab@banxico.org.mx:** pedir el mimeo de oferta y decidir antes si preguntar por el lado de demanda previene o invita el scooping (R6).
-6. **Someter este documento al agente `critic`**, con foco en R1, R2 y en si la Rama B es alcance de maestría.
-7. **Calcular el número efectivo de shocks** — es el primer número que hay que ver, antes que la primera etapa.
+La crítica del 2026-09-01 señala, por tercera vez en este proyecto, que el problema no es el diseño sino la **jerarquía de ejecución**: §5 (dos ramas de política) está más desarrollada que §4.4 (las pruebas de exogeneidad), y §4.4 es donde se decide si hay tesis. Este apartado se reordena en consecuencia.
+
+### El go/no-go real: cinco pasos, ~3 semanas. Antes de escribir una línea más de §5.
+
+1. **S0.** Tabular el % en la categoría "sin valor" de `ENTIDAD_RES5A`, `MUNICIPIO_RES5A` y `MUNICIPIO_TRABAJO`, por ola. Las columnas existen; falta el contenido. **Si `MUNICIPIO_RES5A` está poblado en 1990, los shares suben a 2,469 orígenes y el problema del instrumento débil se disuelve** — es el desenlace que más cambia el proyecto.
+2. **Construcción split-sample** de los agregados de las olas que son punto final de dos diferencias contiguas (2010, y 2015 si se conserva el panel de 4). §3.5. Un día.
+3. **Número efectivo de shocks** bajo las **tres** reglas de exclusión de orígenes (con estado propio, sin estado propio, sin estado propio ni contiguos), y a nivel celda **y** a nivel estado en la misma tabla.
+4. **Primera etapa con la F correcta:** F efectiva de Montiel Olea-Pflueger, errores estándar a nivel shock.
+5. **2SLS con conjuntos de confianza de Anderson-Rubin** para $\varepsilon_D$.
+
+**Y antes del paso 4: pre-registrar por escrito la especificación núcleo** — bandera de transable, ventana, ponderación, regla de exclusión de orígenes, 2015 dentro o fuera, concepto de salario — y reportarla primero, salga el número que salga.
+
+### Gestión, en paralelo (no compite con lo anterior)
+
+6. **★ Correo a econlab@banxico.org.mx.** Es el ítem abierto **más barato** del proyecto y lleva seis semanas parado; la razón declarada para no mandarlo —decidir antes si preguntar previene o invita el scooping— ya consumió más tiempo del que cuesta el correo. Y ahora hay una segunda razón para mandarlo: **V14** (alinear los objetos con el mimeo) sostiene toda la Rama A y no se puede verificar sin él. Mientras tanto, la fn. 18 dice que el equipo que construyó la base —y que incluye a Hanson— tiene los módulos de migración en su hoja de ruta declarada.
+7. **Descargar la carpeta `Códigos` de SIDIE.**
+8. **Descargar las seis lecturas del Nivel 1** — pendiente de cuatro sesiones: DSS 2017 → Card 2001 → BHJ 2025 JEP → GPSS 2020 → JRS 2018 → MRRH 2018.
+9. **Verificar la referencia publicada de Hanson (2005)** — el PDF localizado es un working paper de abril de 2005 para una conferencia del NBER.
+
+### Después de S4, no antes
+
+10. **Decidir entre Rama A y Rama B** (§5). Si el instrumento no tiene fuerza, la decisión es irrelevante.
+11. **Escribir el estimando en una página** (V10) — qué se mantiene fijo, a qué horizonte. Pendiente desde agosto, con un consumidor nuevo: la aritmética de incidencia.
+
+> Crítica completa: `critique/propuesta_v2_critique_2026-09-01.md`.
