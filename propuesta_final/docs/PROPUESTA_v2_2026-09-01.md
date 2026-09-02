@@ -479,7 +479,7 @@ Total ≈ 45–55 páginas. Las etiquetas F#/T# remiten al `CUADERNO_EXPLORACION
 
 | # | Riesgo | Estado | Qué lo mata |
 |---|---|---|---|
-| **R1** | **Instrumento débil.** 32 orígenes, número efectivo de shocks chico | Abierto — **es el go/no-go** | S4: F de primera etapa. Si F<10, celdas origen×demografía |
+| **R1** | **Instrumento débil.** 32 orígenes, número efectivo de shocks chico | Abierto — **es el go/no-go** | S4: **F efectiva de Montiel Olea-Pflueger** con SEs a nivel shock (§4.2 bis). ⚠️ Las celdas **no** son el arreglo (§3.3b); el arreglo real es que `MUNICIPIO_RES5A` esté poblado en 1990 |
 | **R2** | **La objeción de Hanson** (§4.3): los shares de enclave correlacionan con capital humano | Abierto | El balance de GPSS. Es testeable |
 | **R3** | El corte transable no separa el canal consumidor porque la bandera de la casa está mal armada | Identificado, con solución | Bandera propia desde `LLAVE_ACTECONOMICA` |
 | **R4** | Error de medición en 279 mercados unimunicipales y en la ola 2015 | Identificado | Ponderar por empleo; robustez sin el cuartil chico |

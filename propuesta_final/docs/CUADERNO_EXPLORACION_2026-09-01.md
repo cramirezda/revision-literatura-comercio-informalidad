@@ -137,7 +137,7 @@ Esa última trampa es la más peligrosa, y es la que define la verificación S0.
 | **S1 · Panel de mercado-año** (1–2 días) | Un panel único de 777×5 pegando demográficos, salarios residuales, Bartik (total y sectorial), informalidad y vulnerabilidad | **Validación obligatoria**: reproducir una descriptiva publicada de Aldeco et al. §4 (la razón empleo/población, o la prima de calificación) antes de construir nada nuevo |
 | **S2 · Shares de enclave** (2–3 días) | $s_{ol,1990}$ desde el microdato 1990, con el estado propio excluido; y la versión por celdas | Los shares suman 1 por mercado; la distribución tiene dispersión (F5) |
 | **S3 · Push nacional** (2 días) | $g_{ot}$ leave-one-out desde `RES5A` | El push replica los grandes movimientos conocidos (crisis del peso, violencia 2007+) |
-| **S4 · Instrumento y primera etapa** (2 días) | $Z_{lt}$ y la primera etapa | ★ **PUNTO DE DECISIÓN: F ≥ 10** sin controles finos. Si no, replantear antes de seguir |
+| **S4 · Instrumento y primera etapa** (2 días) | $Z_{lt}$ y la primera etapa | ★ **PUNTO DE DECISIÓN.** El criterio es la **F efectiva de Montiel Olea-Pflueger** con errores estándar agrupados a nivel shock — **no** la F convencional, que está inflada porque los SEs shift-share sobre-rechazan, y **no** el umbral 10 de Stock-Yogo, que no vale bajo agrupamiento. Y el intervalo de $\varepsilon_D$ va por **conjuntos de Anderson-Rubin**, porque $\varepsilon_D = -1/\beta$ es no acotado si el IC de $\beta$ incluye el cero |
 | **S5 · Forma reducida y 2SLS** (1 semana) | El número | — |
 | **S6 · Conmutantes** (3 días, paralelo) | Matriz municipal de conmutación 2010 y factibilidad del diseño DSS | Hay masa suficiente de gente que trabaja fuera de su municipio de residencia |
 
